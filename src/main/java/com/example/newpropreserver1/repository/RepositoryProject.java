@@ -17,6 +17,4 @@ public interface RepositoryProject  extends JpaRepository<Project,Long> {
 
     void delete(Project project);
 
-
-
 }

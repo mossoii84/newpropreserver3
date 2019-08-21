@@ -1,9 +1,10 @@
 package com.example.newpropreserver1.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -15,11 +16,23 @@ public class Employee {
     private Integer age;
 
 
+
+//    @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="employeesprojects",
+    joinColumns = @JoinColumn(name = "employee_id"),
+    inverseJoinColumns = @JoinColumn(name = "project_id"))
+    @JsonIgnoreProperties("employees")
+    private Set<Project> projects=new HashSet<>();
+
+
+
+
+
     private Employee(){}
-    private Employee( Long id, String name, Integer age){
-         this.id=id;
-         this.name=name;
-         this.age=age;
+    private Employee( String name, Integer age){
+        this.name=name;
+        this.age=age;
     }
 
 
@@ -32,4 +45,9 @@ public class Employee {
 
     public Integer getAge() { return age; }
     public void setAge(Integer age) { this.age = age; }
+
+    public Set<Project> getProjects() { return projects; }
+    public void setProjects(Set<Project> projects) { this.projects = projects; }
+
+
 }

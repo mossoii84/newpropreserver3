@@ -1,10 +1,9 @@
 package com.example.newpropreserver1.entity;
 
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Project {
@@ -16,6 +15,22 @@ public class Project {
 
 
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="employeesprojects",
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "employee_id"))
+    @JsonIgnoreProperties("projects")
+    private Set<Employee> employees= new HashSet<>();
+
+
+
+
+
+    private Project(){}
+    private Project(String name, String theme){
+        this.name=name;
+        this.theme=theme;
+    }
 
 
     public Long getId() { return id; }
@@ -26,4 +41,7 @@ public class Project {
 
     public String getTheme() { return theme; }
     public void setTheme(String theme) { this.theme = theme; }
+
+    public Set<Employee> getEmployees() { return employees; }
+    public void setEmployees(Set<Employee> employees) { this.employees = employees; }
 }

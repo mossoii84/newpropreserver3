@@ -48,11 +48,12 @@ public class ControllerProject {
            Project projectPut=serviceProject.findAllById(id);
            projectPut.setName(project.getName());
            projectPut.setTheme(project.getTheme());
+           projectPut.setEmployees(project.getEmployees());
            serviceProject.save(projectPut);
            return new ResponseEntity<Project>(projectPut,HttpStatus.OK);
     }
 
-    
+
 
 
 }

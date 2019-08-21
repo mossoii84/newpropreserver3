@@ -46,6 +46,7 @@ public class ControllerEmployee {
      Employee employeePut=serviceEmployee.findAllById(id);
         employeePut.setName(employee.getName());
         employeePut.setAge(employee.getAge());
+        employeePut.setProjects(employee.getProjects());
      serviceEmployee.save(employeePut);
      return new ResponseEntity<Employee>(employeePut,HttpStatus.OK);
     }
